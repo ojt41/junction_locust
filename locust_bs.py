@@ -55,6 +55,8 @@ for year in range(old_year, last_year+1):
         data = locust_data.loc[(locust_data["Year"] == year) & (locust_data["Month"] == month)]
         latlon = list(zip(data["lat"].values, data["lon"].values))
 
+        previous_data = locust_data.loc[(locust_data["Year"] == year) & (locust_data["Month"] == month)]
+
         if len(latlon) != 0:
             for i in range(grid_size):
                 cur_lat = lat_min + lat_increase*i
@@ -65,6 +67,8 @@ for year in range(old_year, last_year+1):
                         if (tup[0] > cur_lat) and (tup[0] < (cur_lat + lat_increase)) and (tup[1] > cur_lon) and (tup[1] < (cur_lon + lon_increase)):
                             bool_val = 1.0
                             break
+                    
+
                     #Features to put: NVDI, Soil Moisture, Year, Month, 
                     final_features.append([year, month, cur_lat, cur_lon])
                     final_targets.append(bool_val)
@@ -72,13 +76,14 @@ for year in range(old_year, last_year+1):
 
 # Random forest that shit
 
-X_train, X_test, y_train, y_test = train_test_split(final_features, final_targets, test_size=0.2)
+X_train, X_test, y_train, y_test = train_test_split(final_features, final_targets, test_size=0.4, shuffle=False)
 
 rf_model = RandomForestClassifier(n_estimators=100)
 
 rf_model.fit(X_train, y_train)
 
 y_pred = rf_model.predict(X_test)
+
 
 # Evaluate accuracy
 accuracy = accuracy_score(y_test, y_pred)
@@ -91,23 +96,23 @@ print(classification_report(y_test, y_pred))
 roc_auc = roc_auc_score(y_test, rf_model.predict_proba(X_test)[:, 1])
 print(f'ROC AUC: {roc_auc:.2f}')
 
-"""
+
+print(np.sum(y_pred)-np.sum(y_test))
 import folium
 
 # Example: Create a map centered on Yemen (use actual coordinates for Yemen's center)
 m = folium.Map(location=[15.0, 48.0], zoom_start=7)
 
 # Plot each grid point and its probability on the map
-for idx, row in grid_points.iterrows():
+for i in range(5, len(X_test)):
     folium.CircleMarker(
-        location=[row['latitude'], row['longitude']],
+        location=[X_test[i][2], X_test[i][3]],
         radius=5,
-        color='red' if row['locust_probability'] > 0.5 else 'blue',  # Color based on probability
+        color='red' if y_pred[i] > 0.5 else 'blue',  # Color based on probability
         fill=True,
-        fill_color='red' if row['locust_probability'] > 0.5 else 'blue',
+        fill_color='red' if y_pred[i] > 0.5 else 'blue',
         fill_opacity=0.6
     ).add_to(m)
 
 # Save the map to an HTML file
 m.save("locust_predictions_map.html")
-"""
