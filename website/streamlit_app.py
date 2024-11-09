@@ -38,7 +38,9 @@ with st.sidebar:
         ["Observations", "Predictions", "All"]
     )
 
-
+# Track sidebar state
+if 'sidebar_state' not in st.session_state:
+    st.session_state.sidebar_state = True
 
 st.title("Locust Maps")
 
@@ -48,21 +50,23 @@ main_container = st.container()
 # Use columns with specific ratios and add padding
 with main_container:
     # Adjust the ratio to prevent overlap (changed from 3:1 to 2:1)
-    col1, col2 = st.columns([2, 1], gap="large")
+    col1, col2 = st.columns([3, 1], gap="large")
 
     with col1:
+        map_width = 750 if st.session_state.sidebar_state else 1000
+
         if map_style == "Observations" or map_style == "All":
             try:
                 with open('./maps/locust_observations_20241109_183935.html', 'r', encoding='utf-8') as f:
                     html_content = f.read()
-                components.html(html_content, height=600, width=600)
+                components.html(html_content, height=600, width=map_width)
             except FileNotFoundError:
                 st.error("Please place your HTML map file in the same directory as this script")
         if map_style == "Predictions" or map_style == "All":
             try:
                 with open('./maps/locust_predictions_2024_1_20241109_184300.html', 'r', encoding='utf-8') as f:
                     html_content = f.read()
-                components.html(html_content, height=600, width=600)
+                components.html(html_content, height=600, width=map_width)
             except FileNotFoundError:
                 st.error("Please place your HTML map file in the same directory as this script")
 
@@ -75,6 +79,9 @@ with main_container:
             st.write("Map 1: Locust Observations - 2018-2021")
             st.write("Map 2: Predictions Heat Map of Locust Swarms - 2024")
 
+            # Update sidebar state
+            if st.button('Expand Map'):
+                st.session_state.sidebar_state = not(st.session_state.sidebar_state)
 
 # Footer with proper spacing
 st.markdown("---")
