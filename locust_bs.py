@@ -3,7 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, roc_auc_score
-
+import math
 #Pre-Processing
 
 locust_data = pd.read_csv("locust_data.csv")
@@ -50,8 +50,6 @@ final_targets = []
 
 for year in range(old_year, last_year+1):
     for month in range(1, 13):
-        features = [[] for i in range(grid_size)]
-        targets = [[] for i in range(grid_size)]
         # Gather the data from that year and month
 
         data = locust_data.loc[(locust_data["Year"] == year) & (locust_data["Month"] == month)]
@@ -62,25 +60,19 @@ for year in range(old_year, last_year+1):
                 cur_lat = lat_min + lat_increase*i
                 for j in range(grid_size):
                     cur_lon = lon_min + lon_increase*j
-                    bool_val = False
+                    bool_val = 0.0
                     for tup in latlon:
                         if (tup[0] > cur_lat) and (tup[0] < (cur_lat + lat_increase)) and (tup[1] > cur_lon) and (tup[1] < (cur_lon + lon_increase)):
-                            bool_val = True
+                            bool_val = 1.0
                             break
                     #Features to put: NVDI, Soil Moisture, Year, Month, 
-                    features[i].append(np.array([year, month]))
-                    targets[i].append([bool_val])
-            features = np.array(features)
-            final_features.append(features)
-            targets = np.array(targets)
-            final_targets.append(targets)
+                    final_features.append([year, month, cur_lat, cur_lon])
+                    final_targets.append(bool_val)
 
 
 # Random forest that shit
 
-train_test_ratio = 0.7
-split_index = math.floor(train_test_ratio*len(final_features))
-
+X_train, X_test, y_train, y_test = train_test_split(final_features, final_targets, test_size=0.2)
 
 rf_model = RandomForestClassifier(n_estimators=100)
 
@@ -98,3 +90,24 @@ print(classification_report(y_test, y_pred))
 # ROC AUC score
 roc_auc = roc_auc_score(y_test, rf_model.predict_proba(X_test)[:, 1])
 print(f'ROC AUC: {roc_auc:.2f}')
+
+"""
+import folium
+
+# Example: Create a map centered on Yemen (use actual coordinates for Yemen's center)
+m = folium.Map(location=[15.0, 48.0], zoom_start=7)
+
+# Plot each grid point and its probability on the map
+for idx, row in grid_points.iterrows():
+    folium.CircleMarker(
+        location=[row['latitude'], row['longitude']],
+        radius=5,
+        color='red' if row['locust_probability'] > 0.5 else 'blue',  # Color based on probability
+        fill=True,
+        fill_color='red' if row['locust_probability'] > 0.5 else 'blue',
+        fill_opacity=0.6
+    ).add_to(m)
+
+# Save the map to an HTML file
+m.save("locust_predictions_map.html")
+"""
