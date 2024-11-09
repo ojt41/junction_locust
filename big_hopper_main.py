@@ -91,7 +91,7 @@ class LocustDataAnalyzer:
 
             # Filter relevant columns and countries
             self.data = self.data[required_columns].copy()
-            target_countries = ["Ethiopia", "Kenya", "Somalia"]
+            target_countries = self.data["Country"].unique()
             target_categories = ["Swarm", "Band"]
 
             self.data = self.data[
@@ -546,7 +546,7 @@ if __name__ == "__main__":
 
         try:
             # Initialize analyzer
-            analyzer = LocustDataAnalyzer("locust_data.csv")
+            analyzer = LocustDataAnalyzer("locust_data_2018_onwards.csv")
 
             # Load and preprocess data
             data = analyzer.load_and_preprocess_data()
