@@ -40,10 +40,16 @@ lon_increase = (lon_max - lon_min)/grid_size
 lat_increase = (lat_max - lat_min)/grid_size
 
 
+locust_data["position"] = list(zip(locust_data["lat"].values, locust_data["lon"].values))
+locust_data = locust_data.drop(columns=["lat", "lon"])
+
+
+
 #Get lowest year and latest year
 
 old_year = np.min(locust_data["Year"].values)
 last_year = np.max(locust_data["Year"].values)
+
 
 final_features = []
 final_targets = []
@@ -53,9 +59,19 @@ for year in range(old_year, last_year+1):
         # Gather the data from that year and month
 
         data = locust_data.loc[(locust_data["Year"] == year) & (locust_data["Month"] == month)]
-        latlon = list(zip(data["lat"].values, data["lon"].values))
+        latlon = data["position"].values
 
-        previous_data = locust_data.loc[(locust_data["Year"] == year) & (locust_data["Month"] == month)]
+        prev_month = month - 1
+        prev_year = year
+        if prev_month == 0 and year != old_year:
+            prev_month = 12
+            prev_year = year-1
+        elif prev_month == 0 and year == old_year:
+            prev_month = 1
+
+        previous_data = locust_data.loc[(locust_data["Year"] == prev_year) & (locust_data["Month"] == prev_month)]
+        prev_swarms = previous_data['position'].values
+
 
         if len(latlon) != 0:
             for i in range(grid_size):
@@ -68,15 +84,24 @@ for year in range(old_year, last_year+1):
                             bool_val = 1.0
                             break
                     
+                    distance = np.inf
+                    for swarm in prev_swarms:
+                        temp = np.sqrt(np.abs(cur_lat - swarm[0])**2 + np.abs(cur_lon - swarm[1])**2)
+                        if temp < distance:
+                            distance = temp
+                    if distance == np.inf:
+                        distance = 0
+
+
 
                     #Features to put: NVDI, Soil Moisture, Year, Month, 
-                    final_features.append([year, month, cur_lat, cur_lon])
+                    final_features.append([year, month, cur_lat, cur_lon, distance])
                     final_targets.append(bool_val)
 
 
 # Random forest that shit
 
-X_train, X_test, y_train, y_test = train_test_split(final_features, final_targets, test_size=0.4, shuffle=False)
+X_train, X_test, y_train, y_test = train_test_split(final_features, final_targets, test_size=0.4, shuffle=True)
 
 rf_model = RandomForestClassifier(n_estimators=100)
 
@@ -96,22 +121,34 @@ print(classification_report(y_test, y_pred))
 roc_auc = roc_auc_score(y_test, rf_model.predict_proba(X_test)[:, 1])
 print(f'ROC AUC: {roc_auc:.2f}')
 
+err=0
+for i in range(len(y_pred)):
+    if y_pred[i] != y_test[i]:
+        err+=1
 
-print(np.sum(y_pred)-np.sum(y_test))
+print("Amount of errors" + str(err) + " " + str(err/10000))
+
+err=0
+for i in range(len(y_pred)):
+    if y_test[i] == 1 and y_pred[i] != 1:
+        err+=1
+
+print("Missed 1s: " + str(err) + " out of " + str(np.sum(y_test)))
+
 import folium
 
 # Example: Create a map centered on Yemen (use actual coordinates for Yemen's center)
 m = folium.Map(location=[15.0, 48.0], zoom_start=7)
-
 # Plot each grid point and its probability on the map
-for i in range(5, len(X_test)):
-    folium.CircleMarker(
-        location=[X_test[i][2], X_test[i][3]],
-        radius=5,
-        color='red' if y_pred[i] > 0.5 else 'blue',  # Color based on probability
+for i in range(10000):
+    folium.Rectangle(
+        bounds=[[final_features[-(10000+i)][2], final_features[-(10000+i)][3]], [final_features[-(10000+i)][2]+lat_increase, final_features[-(10000+i)][3]]+lon_increase],
+        color='red',
         fill=True,
-        fill_color='red' if y_pred[i] > 0.5 else 'blue',
-        fill_opacity=0.6
+        fill_color='red',
+        fill_opacity=1 if final_targets[-(10000+i)] > 0.5 else 0.5,
+        stroke=False,
+        opacity= 1 if final_targets[-(10000+i)] > 0.5 else 0.5
     ).add_to(m)
 
 # Save the map to an HTML file
