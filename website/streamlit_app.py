@@ -33,22 +33,14 @@ st.markdown("""
 with st.sidebar:
     st.title("Map Controls")
 
-    if st.button("Reset View"):
-        pass
-
-    if st.button("Toggle Labels"):
-        pass
-
-    zoom_level = st.slider("Zoom Level", 1, 18, 10)
-
-    st.subheader("Layer Controls")
-    show_markers = st.checkbox("Show Markers", True)
     map_style = st.selectbox(
-        "Map Style",
-        ["OpenStreetMap", "Stamen Terrain", "Cartodb Positron"]
+        "Choose map",
+        ["Observations", "Predictions", "All"]
     )
 
-st.title("Interactive Map")
+
+
+st.title("Locust Maps")
 
 # Create container for the main content
 main_container = st.container()
@@ -59,19 +51,20 @@ with main_container:
     col1, col2 = st.columns([2, 1], gap="large")
 
     with col1:
-        try:
-            with open('./maps/locust_observations_20241109_183935.html', 'r', encoding='utf-8') as f:
-                html_content = f.read()
-            components.html(html_content, height=600, width=600)
-        except FileNotFoundError:
-            st.error("Please place your HTML map file in the same directory as this script")
-
-        try:
-            with open('./maps/locust_predictions_2024_1_20241109_184300.html', 'r', encoding='utf-8') as f:
-                html_content = f.read()
-            components.html(html_content, height=600, width=600)
-        except FileNotFoundError:
-            st.error("Please place your HTML map file in the same directory as this script")
+        if map_style == "Observations" or map_style == "All":
+            try:
+                with open('./maps/locust_observations_20241109_183935.html', 'r', encoding='utf-8') as f:
+                    html_content = f.read()
+                components.html(html_content, height=600, width=600)
+            except FileNotFoundError:
+                st.error("Please place your HTML map file in the same directory as this script")
+        if map_style == "Predictions" or map_style == "All":
+            try:
+                with open('./maps/locust_predictions_2024_1_20241109_184300.html', 'r', encoding='utf-8') as f:
+                    html_content = f.read()
+                components.html(html_content, height=600, width=600)
+            except FileNotFoundError:
+                st.error("Please place your HTML map file in the same directory as this script")
 
     with col2:
         # Add a container to ensure proper spacing
@@ -79,13 +72,9 @@ with main_container:
 
         with info_container:
             st.subheader("Information")
-            st.write("Map 1: Locust Observations 2018-2021")
-            st.write("Map 2: Predictions Heat Map of Locust Swarms")
-            st.write("Selected style:", map_style)
+            st.write("Map 1: Locust Observations - 2018-2021")
+            st.write("Map 2: Predictions Heat Map of Locust Swarms - 2024")
 
-            st.subheader("Statistics")
-            st.metric(label="Total Markers", value="1")
-            st.metric(label="Active Layers", value="1")
 
 # Footer with proper spacing
 st.markdown("---")
