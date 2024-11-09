@@ -1,6 +1,4 @@
 import streamlit as st
-import folium
-from streamlit_folium import folium_static
 import streamlit.components.v1 as components
 
 # Configure the page
@@ -62,14 +60,14 @@ with main_container:
 
     with col1:
         try:
-            with open('../maps/locust_observations_20241109_183935.html', 'r', encoding='utf-8') as f:
+            with open('./maps/locust_observations_20241109_183935.html', 'r', encoding='utf-8') as f:
                 html_content = f.read()
             components.html(html_content, height=600, width=600)
         except FileNotFoundError:
             st.error("Please place your HTML map file in the same directory as this script")
 
         try:
-            with open('../maps/locust_predictions_2024_1_20241109_184300.html', 'r', encoding='utf-8') as f:
+            with open('./maps/locust_predictions_2024_1_20241109_184300.html', 'r', encoding='utf-8') as f:
                 html_content = f.read()
             components.html(html_content, height=600, width=600)
         except FileNotFoundError:
@@ -81,8 +79,8 @@ with main_container:
 
         with info_container:
             st.subheader("Information")
-            st.write("Current zoom level:", zoom_level)
-            st.write("Markers enabled:", show_markers)
+            st.write("Map 1: Locust Observations 2018-2021")
+            st.write("Map 2: Predictions Heat Map of Locust Swarms")
             st.write("Selected style:", map_style)
 
             st.subheader("Statistics")
