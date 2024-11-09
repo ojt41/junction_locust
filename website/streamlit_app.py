@@ -1,6 +1,6 @@
 import streamlit as st
-import folium
-from streamlit_folium import folium_static
+#import folium
+#from streamlit_folium import folium_static
 import streamlit.components.v1 as components
 
 # Configure the page
