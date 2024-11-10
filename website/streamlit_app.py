@@ -145,44 +145,44 @@ with st.sidebar:
     if "last_selected_date" not in st.session_state:
         st.session_state.last_selected_date = None
 
-    if model_button == "Regular model":
-        selected_date = st.date_input("Select a month and year to predict", date(2024, 1, 1))
-
     CURRENT_DIR = Path(__file__).parent
     DATA_PATH = CURRENT_DIR / "locust_data_2018_onwards.csv"
 
 
-    # Add a submit button
-    submit_button = st.button("Generate Analysis")
-
     # Only run analysis when submit button is clicked
-    if submit_button:
-        st.session_state.last_selected_date = selected_date
-        try:
-            # Initialize analyzer
-            analyzer = LocustDataAnalyzer(str(DATA_PATH))
+    if model_button == "Regular model":
+        selected_date = st.date_input("Select a month and year to predict", date(2024, 1, 1))
+        # Add a submit button
+        submit_button = st.button("Generate Analysis")
 
-            # Load and preprocess data
-            data = analyzer.load_and_preprocess_data()
+        # Only run analysis when submit button is clicked
+        if submit_button:
+            st.session_state.last_selected_date = selected_date
+            try:
+                # Initialize analyzer
+                analyzer = LocustDataAnalyzer(str(DATA_PATH))
 
-            # Generate features and train model
-            X, y = analyzer.generate_features()
-            model, metrics = analyzer.train_and_evaluate_model(X, y)
+                # Load and preprocess data
+                data = analyzer.load_and_preprocess_data()
 
-            # Save model
-            model_path = './new_model.joblib'
-            analyzer.save_model(model)
+                # Generate features and train model
+                X, y = analyzer.generate_features()
+                model, metrics = analyzer.train_and_evaluate_model(X, y)
 
-            # Generate new map and save its path in session state
-            new_map_path = create_prediction_map(analyzer, model, selected_date.year, selected_date.month)
-            st.session_state.predictions_path = new_map_path
-            st.session_state.new_map = True
+                # Save model
+                model_path = './new_model.joblib'
+                analyzer.save_model(model)
 
-            st.success("Analysis completed successfully!")
+                # Generate new map and save its path in session state
+                new_map_path = create_prediction_map(analyzer, model, selected_date.year, selected_date.month)
+                st.session_state.predictions_path = new_map_path
+                st.session_state.new_map = True
 
-        except Exception as e:
-            st.error(f"An error occurred: {str(e)}")
-            st.session_state.new_map = False
+                st.success("Analysis completed successfully!")
+
+            except Exception as e:
+                st.error(f"An error occurred: {str(e)}")
+                st.session_state.new_map = False
 
 
 # Track sidebar state
