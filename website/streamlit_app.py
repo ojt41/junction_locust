@@ -1,7 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
 from big_hopper_main import LocustDataAnalyzer
-import datetime
+from datetime import datetime, date
 import logging
 from datetime import datetime
 from pathlib import Path
@@ -145,7 +145,7 @@ with st.sidebar:
         st.session_state.last_selected_date = None
 
     if model_button == "Regular model":
-        selected_date = st.date_input("Select a month and year to predict", datetime.today())
+        selected_date = st.date_input("Select a month and year to predict", date(2024, 1, 1))
 
     CURRENT_DIR = Path(__file__).parent
     DATA_PATH = CURRENT_DIR / "locust_data_2018_onwards.csv"
