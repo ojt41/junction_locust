@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba0e4cfc-37fa-42bb-81a4-ac7422239ded" name="Changes" comment="Add website streamlit">
-      <change beforePath="$PROJECT_DIR$/.idea/junction_locust.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/junction_locust.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Junction2025.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/website/Junction2025.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/big_hopper_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/big_hopper_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/final_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/website/final_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locust_bs.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/locust_bs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locust_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/website/locust_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locust_data_2018_onwards.csv" beforeDir="false" afterPath="$PROJECT_DIR$/website/locust_data_2018_onwards.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/locust_predictions_map.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/locust_predictions_map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/observations.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/website/observations.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/weather_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/website/weather_data.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/website/streamlit_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/streamlit_app.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/website/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +139,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731097312583</updated>
       <workItem from="1731097313919" duration="431000" />
-      <workItem from="1731170136239" duration="20947000" />
+      <workItem from="1731170136239" duration="21805000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialised">
       <option name="closed" value="true" />
@@ -193,7 +181,55 @@
       <option name="project" value="LOCAL" />
       <updated>1731190180692</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731206934152</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731206934152</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207020510</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207020510</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207251074</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207251074</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207323607</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207323607</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207379188</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207379188</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207432358</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207432358</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
