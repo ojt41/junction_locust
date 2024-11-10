@@ -5,10 +5,6 @@ typing
 pandas
 numpy
 scikit-learn
-sklearn.model_selection
-sklearn.ensemble
-sklearn.metrics
-sklearn.preprocessing
 joblib
 folium
 folium
