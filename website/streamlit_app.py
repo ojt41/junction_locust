@@ -70,7 +70,7 @@ with st.sidebar:
     if model_button == "Regular model":
         selected_date = st.date_input("Select a month and year to predict", datetime.today())
 
-    data = "locust_data_2018_onwards.csv"
+    data = "./locust_data_2018_onwards.csv"
 
 
 

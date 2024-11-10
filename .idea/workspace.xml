@@ -138,7 +138,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731097312583</updated>
       <workItem from="1731097313919" duration="431000" />
-      <workItem from="1731170136239" duration="22092000" />
+      <workItem from="1731170136239" duration="22172000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialised">
       <option name="closed" value="true" />
@@ -252,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731207717039</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207782904</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207782904</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
