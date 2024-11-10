@@ -400,7 +400,7 @@ class LocustDataAnalyzer:
 
         return self.prediction_map
 
-    def save_model(self, model: RandomForestClassifier, output_dir: str = "models") -> None:
+    def save_model(self, model: RandomForestClassifier, output_dir: str = "models"):
             """
             Save the trained model and scaler to disk.
 
@@ -410,13 +410,11 @@ class LocustDataAnalyzer:
             """
             try:
                 # Create output directory if it doesn't exist
-                output_path = Path(output_dir)
-                output_path.mkdir(exist_ok=True)
 
                 # Generate timestamped filenames
                 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                model_path = output_path / f"locust_model_{timestamp}.joblib"
-                scaler_path = output_path / f"scaler_{timestamp}.joblib"
+                model_path = f"./new_model.joblib"
+                scaler_path = f"./new_scaler.joblib"
 
                 # Save model and scaler
                 joblib.dump(model, model_path)
@@ -429,62 +427,6 @@ class LocustDataAnalyzer:
                 logging.error(f"Error saving model: {str(e)}")
                 raise
 
-    def plot_temporal_distribution(self, save_path: str = "plots") -> None:
-            """
-            Create plots showing temporal distribution of locust occurrences.
-
-            Args:
-                save_path: Directory to save the plots
-            """
-            if self.data is None:
-                raise ValueError("Data must be loaded before creating plots")
-
-            try:
-                # Create output directory if it doesn't exist
-                Path(save_path).mkdir(exist_ok=True)
-                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-                # Set up the plotting style
-                plt.style.use('seaborn')
-
-                # Create figure with multiple subplots
-                fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 15))
-
-                # 1. Monthly distribution
-                monthly_counts = self.data.groupby(['Month', 'Category']).size().unstack(fill_value=0)
-                monthly_counts.plot(kind='bar', ax=ax1)
-                ax1.set_title('Monthly Distribution of Locust Occurrences')
-                ax1.set_xlabel('Month')
-                ax1.set_ylabel('Count')
-                ax1.legend(title='Category')
-
-                # 2. Yearly trend
-                yearly_counts = self.data.groupby(['Year', 'Category']).size().unstack(fill_value=0)
-                yearly_counts.plot(kind='line', marker='o', ax=ax2)
-                ax2.set_title('Yearly Trend of Locust Occurrences')
-                ax2.set_xlabel('Year')
-                ax2.set_ylabel('Count')
-                ax2.legend(title='Category')
-
-                # 3. Seasonal patterns by country
-                seasonal_counts = self.data.groupby(['Season', 'Country', 'Category']).size().unstack(fill_value=0)
-                seasonal_counts.plot(kind='bar', ax=ax3)
-                ax3.set_title('Seasonal Patterns by Country')
-                ax3.set_xlabel('Season')
-                ax3.set_ylabel('Count')
-                ax3.legend(title='Category')
-
-                # Adjust layout and save
-                plt.tight_layout()
-                plot_path = Path(save_path) / f"temporal_distribution_{timestamp}.png"
-                plt.savefig(plot_path, dpi=300, bbox_inches='tight')
-                plt.close()
-
-                logging.info(f"Temporal distribution plots saved to {plot_path}")
-
-            except Exception as e:
-                logging.error(f"Error creating temporal distribution plots: {str(e)}")
-                raise
 
     def analyze_spatial_patterns(self) -> Dict[str, Any]:
             """
