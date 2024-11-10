@@ -1,14 +1,9 @@
 streamlit
-datetime
-logging
-pathlib
-typing
 pandas
 numpy
 scikit-learn
 joblib
 folium
-folium
-branca.colormap
-matplotlib.pyplot
+branca
+matplotlib
 seaborn
