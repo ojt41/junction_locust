@@ -4,7 +4,7 @@ pathlib
 typing
 pandas
 numpy
-sklearn
+scikit-learn
 joblib
 folium
 folium
