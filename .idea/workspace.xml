@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ba0e4cfc-37fa-42bb-81a4-ac7422239ded" name="Changes" comment="Project initialised">
-      <change afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ba0e4cfc-37fa-42bb-81a4-ac7422239ded" name="Changes" comment="Add website streamlit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/website/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/streamlit_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/streamlit_app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,19 +45,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.streamlit_app.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/chris/PycharmProjects/junction_locust/website",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager">
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\chris\PycharmProjects\junction_locust\website" />
+      <recent name="C:\Users\chris\PycharmProjects\junction_locust\website\maps" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chris\PycharmProjects\junction_locust\website" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.streamlit_app">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="junction_locust" />
       <option name="ENV_FILES" value="" />
@@ -72,7 +83,31 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\chris\PycharmProjects\junction_locust\website\main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="streamlit_app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="junction_locust" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (Junction2024)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/website" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/website/streamlit_app.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -83,6 +118,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.streamlit_app" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
@@ -90,8 +126,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23726.102" />
-        <option value="bundled-python-sdk-5e1850174b45-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23726.102" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
       </set>
     </attachedChunks>
   </component>
@@ -104,6 +140,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731097312583</updated>
       <workItem from="1731097313919" duration="431000" />
+      <workItem from="1731170136239" duration="22907000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialised">
       <option name="closed" value="true" />
@@ -113,7 +150,135 @@
       <option name="project" value="LOCAL" />
       <updated>1731097399420</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731173300167</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731173300167</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731178690233</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731178690233</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731184085040</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1731184085040</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731190180692</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1731190180692</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731206934152</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731206934152</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207020510</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207020510</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207251074</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207251074</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207323607</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207323607</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207379188</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207379188</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207432358</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207432358</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207491156</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207491156</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207631868</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207631868</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207717039</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207717039</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207782904</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207782904</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207864776</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207864776</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207960406</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207960406</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,6 +286,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Project initialised" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project initialised" />
+    <MESSAGE value="Add website streamlit" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add website streamlit" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/junction_locust$streamlit_app.coverage" NAME="streamlit_app Coverage Results" MODIFIED="1731171533321" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/website" />
   </component>
 </project>

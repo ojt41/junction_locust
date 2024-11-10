@@ -1,5 +1,25 @@
 import streamlit as st
 import streamlit.components.v1 as components
+from big_hopper_main import LocustDataAnalyzer
+import datetime
+import logging
+from datetime import datetime
+from pathlib import Path
+from typing import List, Tuple, Dict, Any
+
+# Third-party imports
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, roc_auc_score
+from sklearn.preprocessing import StandardScaler
+import joblib
+import folium
+from folium import plugins
+from branca.colormap import LinearColormap
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Configure the page
 st.set_page_config(
@@ -38,6 +58,57 @@ with st.sidebar:
         ["Observations", "Predictions", "All"]
     )
 
+    model_button = st.selectbox("Choose model",
+                                ["Advanced Model", "Regular model"]
+                                )
+
+
+
+    if "last_selected_date" not in st.session_state:
+        st.session_state.last_selected_date = None
+
+    if model_button == "Regular model":
+        selected_date = st.date_input("Select a month and year to predict", datetime.today())
+
+    CURRENT_DIR = Path(__file__).parent
+    DATA_PATH = CURRENT_DIR / "locust_data_2018_onwards.csv"
+
+
+    # Add a submit button
+    submit_button = st.button("Generate Analysis")
+
+    # Only run analysis when submit button is clicked
+    if submit_button:
+        st.session_state.last_selected_date = selected_date
+        try:
+            # Initialize analyzer
+            analyzer = LocustDataAnalyzer(str(DATA_PATH))
+
+            # Load and preprocess data
+            data = analyzer.load_and_preprocess_data()
+
+            # Generate features and train model
+            X, y = analyzer.generate_features()
+            model, metrics = analyzer.train_and_evaluate_model(X, y)
+
+            # Create visualizations
+            analyzer.create_observation_map()
+            analyzer.create_prediction_map(model, selected_date.year, selected_date.month)
+            analyzer.plot_temporal_distribution()
+
+            # Analyze spatial patterns
+            spatial_analysis = analyzer.analyze_spatial_patterns()
+
+            # Save model
+            analyzer.save_model(model)
+
+            # Add a success message
+            st.success("Analysis completed successfully!")
+
+        except Exception as e:
+            st.error(f"An error occurred: {str(e)}")
+
+
 # Track sidebar state
 if 'sidebar_state' not in st.session_state:
     st.session_state.sidebar_state = True
@@ -53,7 +124,7 @@ with main_container:
     col1, col2 = st.columns([3, 1], gap="large")
 
     with col1:
-        map_width = 750 if st.session_state.sidebar_state else 1000
+        map_width = 750
 
         if map_style == "Observations" or map_style == "All":
             try:
@@ -78,10 +149,6 @@ with main_container:
             st.subheader("Information")
             st.write("Map 1: Locust Observations - 2018-2021")
             st.write("Map 2: Predictions Heat Map of Locust Swarms - 2024")
-
-            # Update sidebar state
-            if st.button('Expand Map'):
-                st.session_state.sidebar_state = not(st.session_state.sidebar_state)
 
 # Footer with proper spacing
 st.markdown("---")

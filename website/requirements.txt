@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+scikit-learn
+joblib
+folium
+branca
+matplotlib
+seaborn
+datetime
+pathlib
