@@ -19,7 +19,6 @@ import folium
 from folium import plugins
 from branca.colormap import LinearColormap
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Configure the page
 st.set_page_config(
@@ -48,6 +47,8 @@ st.markdown("""
     }
     </style>
     """, unsafe_allow_html=True)
+
+predictions_path = './maps/locust_predictions_2024_1_20241109_184300.html'
 
 # Sidebar controls
 with st.sidebar:
@@ -94,14 +95,14 @@ with st.sidebar:
             # Create visualizations
             analyzer.create_observation_map()
             analyzer.create_prediction_map(model, selected_date.year, selected_date.month)
-            analyzer.plot_temporal_distribution()
+            #analyzer.plot_temporal_distribution()
 
             # Analyze spatial patterns
             spatial_analysis = analyzer.analyze_spatial_patterns()
 
             # Save model
             analyzer.save_model(model)
-
+            predictions_path = './new_model.joblib'
             # Add a success message
             st.success("Analysis completed successfully!")
 
@@ -135,7 +136,7 @@ with main_container:
                 st.error("Please place your HTML map file in the same directory as this script")
         if map_style == "Predictions" or map_style == "All":
             try:
-                with open('./maps/locust_predictions_2024_1_20241109_184300.html', 'r', encoding='utf-8') as f:
+                with open(predictions_path, 'r', encoding='utf-8') as f:
                     html_content = f.read()
                 components.html(html_content, height=600, width=map_width)
             except FileNotFoundError:
@@ -153,4 +154,3 @@ with main_container:
 # Footer with proper spacing
 st.markdown("---")
 st.markdown("Made with Streamlit")
-##
