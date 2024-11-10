@@ -500,7 +500,6 @@ if __name__ == "__main__":
             # Create visualizations
             analyzer.create_observation_map()
             analyzer.create_prediction_map(model, 2024, 1)
-            analyzer.plot_temporal_distribution()
 
             # Analyze spatial patterns
             spatial_analysis = analyzer.analyze_spatial_patterns()
