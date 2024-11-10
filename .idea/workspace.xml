@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ba0e4cfc-37fa-42bb-81a4-ac7422239ded" name="Changes" comment="Add website streamlit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/website/streamlit_app.py" beforeDir="false" afterPath="$PROJECT_DIR$/website/streamlit_app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -138,7 +139,7 @@
       <option name="presentableId" value="Default" />
       <updated>1731097312583</updated>
       <workItem from="1731097313919" duration="431000" />
-      <workItem from="1731170136239" duration="22172000" />
+      <workItem from="1731170136239" duration="22269000" />
     </task>
     <task id="LOCAL-00001" summary="Project initialised">
       <option name="closed" value="true" />
@@ -260,7 +261,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731207782904</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="Add website streamlit">
+      <option name="closed" value="true" />
+      <created>1731207864776</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1731207864776</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
