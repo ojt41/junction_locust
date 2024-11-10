@@ -50,7 +50,8 @@ st.markdown("""
 
 # At the top of your script, add state management
 if 'predictions_path' not in st.session_state:
-    st.session_state.predictions_path = './maps/advanced model prediction.html'
+    CURRENT_DIR = Path(__file__).parent
+    st.session_state.predictions_path = CURRENT_DIR / 'maps/advanced_model_prediction.html'
 if 'new_map' not in st.session_state:
     st.session_state.new_map = False
 
