@@ -50,7 +50,7 @@ st.markdown("""
 
 # At the top of your script, add state management
 if 'predictions_path' not in st.session_state:
-    st.session_state.predictions_path = './maps/locust_predictions_2024_1_20241109_184300.html'
+    st.session_state.predictions_path = './maps/advanced model prediction.html'
 if 'new_map' not in st.session_state:
     st.session_state.new_map = False
 
