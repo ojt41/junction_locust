@@ -246,7 +246,8 @@ class LocustDataAnalyzer:
                               year: int, month: int,
                               save_path: str = "maps") -> folium.Map:
         """
-        Create a heat map of model predictions for a specific time period.
+        Create an improved heat map of model predictions with better spatial resolution
+        and more focused predictions.
 
         Args:
             model: Trained RandomForestClassifier
@@ -257,32 +258,47 @@ class LocustDataAnalyzer:
         Returns:
             Folium map object with prediction heatmap
         """
-        # Get average environmental conditions for the specified month
-        avg_conditions = {
-            'soil_moisture': self.data[
-                self.data['Month'] == month
-                ]['Soil_Moisture'].mean(),
-            'temperature': self.data[
-                self.data['Month'] == month
-                ]['Temperature_2m'].mean()
-        }
+        # Get environmental conditions specific to the region and time period
+        monthly_conditions = self.data[
+            self.data['Month'] == month
+            ].agg({
+            'Soil_Moisture': ['mean', 'std'],
+            'Temperature_2m': ['mean', 'std']
+        })
 
-        # Create prediction grid
-        lat_range = np.linspace(self.lat_min, self.lat_max, self.grid_size)
-        lon_range = np.linspace(self.lon_min, self.lon_max, self.grid_size)
+        # Create a finer prediction grid for better resolution
+        grid_size = self.grid_size * 2  # Double the resolution
+        lat_range = np.linspace(self.lat_min, self.lat_max, grid_size)
+        lon_range = np.linspace(self.lon_min, self.lon_max, grid_size)
 
         grid_points = []
         predictions = []
 
+        # Calculate seasonal features
+        sin_month = np.sin(2 * np.pi * month / 12)
+        cos_month = np.cos(2 * np.pi * month / 12)
+
         # Generate predictions for each grid point
         for lat in lat_range:
             for lon in lon_range:
+                # Find nearest actual environmental conditions
+                nearby_data = self.data[
+                    (abs(self.data['lat'] - lat) < 2) &  # Within 2 degrees
+                    (abs(self.data['lon'] - lon) < 2) &  # Within 2 degrees
+                    (self.data['Month'] == month)
+                    ]
+
+                if len(nearby_data) > 0:
+                    soil_moisture = nearby_data['Soil_Moisture'].mean()
+                    temperature = nearby_data['Temperature_2m'].mean()
+                else:
+                    soil_moisture = monthly_conditions['Soil_Moisture']['mean']
+                    temperature = monthly_conditions['Temperature_2m']['mean']
+
                 features = [
                     year, month, lat, lon,
-                    np.sin(2 * np.pi * month / 12),
-                    np.cos(2 * np.pi * month / 12),
-                    avg_conditions['soil_moisture'],
-                    avg_conditions['temperature']
+                    sin_month, cos_month,
+                    soil_moisture, temperature
                 ]
 
                 # Scale features (excluding year and month)
@@ -292,8 +308,20 @@ class LocustDataAnalyzer:
                 # Get prediction probability
                 prob = model.predict_proba([features_scaled])[0][1]
 
-                grid_points.append([lat, lon])
-                predictions.append(prob)
+                # Apply geographic weighting based on historical presence
+                historical_presence = self.data[
+                    (abs(self.data['lat'] - lat) < 0.5) &
+                    (abs(self.data['lon'] - lon) < 0.5)
+                    ].shape[0]
+
+                if historical_presence > 0:
+                    # Increase probability for areas with historical presence
+                    prob = min(1.0, prob * 1.2)
+
+                # Only include points with significant probability
+                if prob > 0.2:  # Threshold to reduce noise
+                    grid_points.append([lat, lon])
+                    predictions.append(prob)
 
         # Create prediction map
         center_lat = (self.lat_min + self.lat_max) / 2
@@ -301,29 +329,56 @@ class LocustDataAnalyzer:
 
         self.prediction_map = folium.Map(
             location=[center_lat, center_lon],
-            zoom_start=6,
+            zoom_start=5,
             tiles='CartoDB positron'
         )
 
-        # Add heatmap layer
-        heatmap_data = [[lat, lon, prob] for (lat, lon), prob in zip(grid_points, predictions)]
-        plugins.HeatMap(
-            heatmap_data,
-            min_opacity=0.3,
-            max_opacity=0.8,
-            radius=15,
-            blur=10,
-            gradient={0.4: 'blue', 0.6: 'yellow', 0.8: 'orange', 1: 'red'}
-        ).add_to(self.prediction_map)
+        # Add heatmap layer with adjusted parameters
+        if grid_points:  # Only add heatmap if we have predictions
+            plugins.HeatMap(
+                [[lat, lon, prob] for (lat, lon), prob in zip(grid_points, predictions)],
+                min_opacity=0.4,
+                max_opacity=0.9,
+                radius=12,  # Reduced radius for better definition
+                blur=8,  # Reduced blur for sharper boundaries
+                gradient={
+                    0.2: 'blue',
+                    0.4: 'cyan',
+                    0.6: 'yellow',
+                    0.8: 'orange',
+                    1.0: 'red'
+                }
+            ).add_to(self.prediction_map)
 
-        # Add colormap
+        # Add colormap legend
         colormap = LinearColormap(
-            colors=['blue', 'yellow', 'orange', 'red'],
-            vmin=0,
-            vmax=1,
+            colors=['blue', 'cyan', 'yellow', 'orange', 'red'],
+            vmin=0.2,
+            vmax=1.0,
             caption='Predicted Probability of Locust Presence'
         )
         colormap.add_to(self.prediction_map)
+
+        # Add historical observations as markers for reference
+        historical_data = self.data[
+            (self.data['Year'] == year) &
+            (self.data['Month'] == month)
+            ]
+
+        if not historical_data.empty:
+            marker_cluster = plugins.MarkerCluster(name='Historical Observations')
+            for _, row in historical_data.iterrows():
+                folium.CircleMarker(
+                    location=[row['lat'], row['lon']],
+                    radius=5,
+                    color='black',
+                    fill=True,
+                    popup=f"Historical {row['Category']} observation"
+                ).add_to(marker_cluster)
+            marker_cluster.add_to(self.prediction_map)
+
+        # Add layer control
+        folium.LayerControl().add_to(self.prediction_map)
 
         # Save map
         Path(save_path).mkdir(exist_ok=True)
@@ -619,7 +674,7 @@ if __name__ == "__main__":
 
         # Create visualizations
         analyzer.create_observation_map()
-        analyzer.create_prediction_map(model, 2024, 1)
+        analyzer.create_prediction_map(model, 2024, 10)
         analyzer.plot_temporal_distribution()
 
         # Analyze spatial patterns

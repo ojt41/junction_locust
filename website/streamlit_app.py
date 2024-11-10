@@ -86,3 +86,4 @@ with main_container:
 # Footer with proper spacing
 st.markdown("---")
 st.markdown("Made with Streamlit")
+##
