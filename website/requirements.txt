@@ -7,3 +7,4 @@ folium
 branca
 matplotlib
 seaborn
+datetime
